@@ -1,0 +1,814 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<constant name='kAppiraterCurrentVersion' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterDeclinedToRate' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterFirstUseDate' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterRatedCurrentVersion' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterReminderRequestDate' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterSignificantEventCount' const='true' declared_type='NSString*' type='@'/>
+<constant name='kAppiraterUseCount' const='true' declared_type='NSString*' type='@'/>
+<enum name='MBProgressHUDAnimationFade' value='0'/>
+<enum name='MBProgressHUDAnimationZoom' value='1'/>
+<enum name='MBProgressHUDAnimationZoomIn' value='2'/>
+<enum name='MBProgressHUDAnimationZoomOut' value='1'/>
+<enum name='MBProgressHUDModeAnnularDeterminate' value='2'/>
+<enum name='MBProgressHUDModeCustomView' value='3'/>
+<enum name='MBProgressHUDModeDeterminate' value='1'/>
+<enum name='MBProgressHUDModeIndeterminate' value='0'/>
+<enum name='MBProgressHUDModeText' value='4'/>
+<enum name='MGCornersPositionLeadingHorizontal' value='2'/>
+<enum name='MGCornersPositionLeadingVertical' value='0'/>
+<enum name='MGCornersPositionTrailingHorizontal' value='3'/>
+<enum name='MGCornersPositionTrailingVertical' value='1'/>
+<enum name='MGSplitViewDividerStylePaneSplitter' value='1'/>
+<enum name='MGSplitViewDividerStyleThin' value='0'/>
+<class name='Appirater'>
+<method selector='appEnteredForeground:' class_method='true'>
+<arg name='canPromptForRating' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appLaunched' class_method='true'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appLaunched:' class_method='true'>
+<arg name='canPromptForRating' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='closeModal' class_method='true'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='delegate'>
+<retval declared_type='NSObject*' type='@'/>
+</method>
+<method selector='rateApp' class_method='true'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='ratingAlert'>
+<retval declared_type='UIAlertView*' type='@'/>
+</method>
+<method selector='setAppId:' class_method='true'>
+<arg name='appId' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDaysUntilPrompt:' class_method='true'>
+<arg name='value' declared_type='double' index='0' type='d'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDebug:' class_method='true'>
+<arg name='debug' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDelegate:' class_method='true'>
+<arg name='delegate' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDelegate:'>
+<arg name='delegate' declared_type='NSObject*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setOpenInAppStore:' class_method='true'>
+<arg name='openInAppStore' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setRatingAlert:'>
+<arg name='ratingAlert' declared_type='UIAlertView*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSignificantEventsUntilPrompt:' class_method='true'>
+<arg name='value' declared_type='NSInteger' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setTimeBeforeReminding:' class_method='true'>
+<arg name='value' declared_type='double' index='0' type='d'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setUsesAnimation:' class_method='true'>
+<arg name='animation' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setUsesUntilPrompt:' class_method='true'>
+<arg name='value' declared_type='NSInteger' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showPrompt' class_method='true'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='userDidSignificantEvent:' class_method='true'>
+<arg name='canPromptForRating' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<class name='Flurry'>
+<method selector='endTimedEvent:withParameters:' class_method='true'>
+<arg name='eventName' declared_type='NSString*' index='0' type='@'/>
+<arg name='parameters' declared_type='NSDictionary*' index='1' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='getFlurryAgentVersion' class_method='true'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+<method selector='logAllPageViews:' class_method='true'>
+<arg name='target' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logError:message:error:' class_method='true'>
+<arg name='errorID' declared_type='NSString*' index='0' type='@'/>
+<arg name='message' declared_type='NSString*' index='1' type='@'/>
+<arg name='error' declared_type='NSError*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logError:message:exception:' class_method='true'>
+<arg name='errorID' declared_type='NSString*' index='0' type='@'/>
+<arg name='message' declared_type='NSString*' index='1' type='@'/>
+<arg name='exception' declared_type='NSException*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logEvent:' class_method='true'>
+<arg name='eventName' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logEvent:timed:' class_method='true'>
+<arg name='eventName' declared_type='NSString*' index='0' type='@'/>
+<arg name='timed' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logEvent:withParameters:' class_method='true'>
+<arg name='eventName' declared_type='NSString*' index='0' type='@'/>
+<arg name='parameters' declared_type='NSDictionary*' index='1' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logEvent:withParameters:timed:' class_method='true'>
+<arg name='eventName' declared_type='NSString*' index='0' type='@'/>
+<arg name='parameters' declared_type='NSDictionary*' index='1' type='@'/>
+<arg name='timed' declared_type='BOOL' index='2' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='logPageView' class_method='true'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setAge:' class_method='true'>
+<arg name='age' declared_type='int' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setAppVersion:' class_method='true'>
+<arg name='version' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setCrashReportingEnabled:' class_method='true'>
+<arg name='value' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDebugLogEnabled:' class_method='true'>
+<arg name='value' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setEventLoggingEnabled:' class_method='true'>
+<arg name='value' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setGender:' class_method='true'>
+<arg name='gender' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setLatitude:longitude:horizontalAccuracy:verticalAccuracy:' class_method='true'>
+<arg name='latitude' declared_type='double' index='0' type='d'/>
+<arg name='longitude' declared_type='double' index='1' type='d'/>
+<arg name='horizontalAccuracy' declared_type='float' index='2' type='f'/>
+<arg name='verticalAccuracy' declared_type='float' index='3' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setPushToken:' class_method='true'>
+<arg name='pushToken' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSecureTransportEnabled:' class_method='true'>
+<arg name='value' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSessionContinueSeconds:' class_method='true'>
+<arg name='seconds' declared_type='int' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSessionReportsOnCloseEnabled:' class_method='true'>
+<arg name='sendSessionReportsOnClose' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSessionReportsOnPauseEnabled:' class_method='true'>
+<arg name='setSessionReportsOnPauseEnabled' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setShowErrorInLogEnabled:' class_method='true'>
+<arg name='value' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setUserID:' class_method='true'>
+<arg name='userID' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='startSession:' class_method='true'>
+<arg name='apiKey' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='startSession:withOptions:' class_method='true'>
+<arg name='apiKey' declared_type='NSString*' index='0' type='@'/>
+<arg name='options' declared_type='id' index='1' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<class name='MBProgressHUD'>
+<method selector='HUDForView:' class_method='true'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<retval declared_type='MBProgressHUD*' type='@'/>
+</method>
+<method selector='allHUDsForView:' class_method='true'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<retval declared_type='NSArray*' type='@'/>
+</method>
+<method selector='animationType'>
+<retval declared_type='MBProgressHUDAnimation' type='i'/>
+</method>
+<method selector='color'>
+<retval declared_type='UIColor*' type='@'/>
+</method>
+<method selector='completionBlock'>
+<retval function_pointer='true' declared_type='MBProgressHUDCompletionBlock' type='@?'>
+<retval declared_type='void' type='v'/>
+</retval>
+</method>
+<method selector='customView'>
+<retval declared_type='UIView*' type='@'/>
+</method>
+<method selector='delegate'>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='detailsLabelFont'>
+<retval declared_type='UIFont*' type='@'/>
+</method>
+<method selector='detailsLabelText'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+<method selector='dimBackground'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='graceTime'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='hide:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='hide:afterDelay:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<arg name='delay' declared_type='NSTimeInterval' index='1' type='d'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='hideAllHUDsForView:animated:' class_method='true'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='NSUInteger' type='I'/>
+</method>
+<method selector='hideHUDForView:animated:' class_method='true'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='initWithView:'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='initWithWindow:'>
+<arg name='window' declared_type='UIWindow*' index='0' type='@'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='isSquare'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='labelFont'>
+<retval declared_type='UIFont*' type='@'/>
+</method>
+<method selector='labelText'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+<method selector='margin'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='minShowTime'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='minSize'>
+<retval declared_type='CGSize' type='{CGSize=ff}'/>
+</method>
+<method selector='mode'>
+<retval declared_type='MBProgressHUDMode' type='i'/>
+</method>
+<method selector='opacity'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='progress'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='removeFromSuperViewOnHide'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='setAnimationType:'>
+<arg name='animationType' declared_type='MBProgressHUDAnimation' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setColor:'>
+<arg name='color' declared_type='UIColor*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setCompletionBlock:'>
+<arg name='completionBlock' function_pointer='true' declared_type='MBProgressHUDCompletionBlock' index='0' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setCustomView:'>
+<arg name='customView' declared_type='UIView*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDelegate:'>
+<arg name='delegate' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDetailsLabelFont:'>
+<arg name='detailsLabelFont' declared_type='UIFont*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDetailsLabelText:'>
+<arg name='detailsLabelText' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDimBackground:'>
+<arg name='dimBackground' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setGraceTime:'>
+<arg name='graceTime' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setLabelFont:'>
+<arg name='labelFont' declared_type='UIFont*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setLabelText:'>
+<arg name='labelText' declared_type='NSString*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMargin:'>
+<arg name='margin' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMinShowTime:'>
+<arg name='minShowTime' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMinSize:'>
+<arg name='minSize' declared_type='CGSize' index='0' type='{CGSize=ff}'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMode:'>
+<arg name='mode' declared_type='MBProgressHUDMode' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setOpacity:'>
+<arg name='opacity' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setProgress:'>
+<arg name='progress' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setRemoveFromSuperViewOnHide:'>
+<arg name='removeFromSuperViewOnHide' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSquare:'>
+<arg name='square' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setTaskInProgress:'>
+<arg name='taskInProgress' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setXOffset:'>
+<arg name='xOffset' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setYOffset:'>
+<arg name='yOffset' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='show:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showAnimated:whileExecutingBlock:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<arg name='block' function_pointer='true' declared_type='dispatch_block_t' index='1' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showAnimated:whileExecutingBlock:completionBlock:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<arg name='block' function_pointer='true' declared_type='dispatch_block_t' index='1' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<arg name='completion' function_pointer='true' declared_type='MBProgressHUDCompletionBlock' index='2' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showAnimated:whileExecutingBlock:onQueue:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<arg name='block' function_pointer='true' declared_type='dispatch_block_t' index='1' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<arg name='queue' declared_type='dispatch_queue_t' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showAnimated:whileExecutingBlock:onQueue:completionBlock:'>
+<arg name='animated' declared_type='BOOL' index='0' type='B'/>
+<arg name='block' function_pointer='true' declared_type='dispatch_block_t' index='1' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<arg name='queue' declared_type='dispatch_queue_t' index='2' type='@'/>
+<arg name='completion' function_pointer='true' declared_type='MBProgressHUDCompletionBlock' index='3' type='@?'>
+<retval declared_type='void' type='v'/>
+</arg>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showHUDAddedTo:animated:' class_method='true'>
+<arg name='view' declared_type='UIView*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='MBProgressHUD*' type='@'/>
+</method>
+<method selector='showWhileExecuting:onTarget:withObject:animated:'>
+<arg name='method' declared_type='SEL' index='0' type=':'/>
+<arg name='target' declared_type='id' index='1' type='@'/>
+<arg name='object' declared_type='id' index='2' type='@'/>
+<arg name='animated' declared_type='BOOL' index='3' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='taskInProgress'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='xOffset'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='yOffset'>
+<retval declared_type='float' type='f'/>
+</method>
+</class>
+<class name='MBRoundProgressView'>
+<method selector='backgroundTintColor'>
+<retval declared_type='UIColor*' type='@'/>
+</method>
+<method selector='isAnnular'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='progress'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='progressTintColor'>
+<retval declared_type='UIColor*' type='@'/>
+</method>
+<method selector='setAnnular:'>
+<arg name='annular' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setBackgroundTintColor:'>
+<arg name='backgroundTintColor' declared_type='UIColor*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setProgress:'>
+<arg name='progress' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setProgressTintColor:'>
+<arg name='progressTintColor' declared_type='UIColor*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<class name='MGSplitCornersView'>
+<method selector='cornerBackgroundColor'>
+<retval declared_type='UIColor*' type='@'/>
+</method>
+<method selector='cornerRadius'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='cornersPosition'>
+<retval declared_type='MGCornersPosition' type='i'/>
+</method>
+<method selector='setCornerBackgroundColor:'>
+<arg name='cornerBackgroundColor' declared_type='UIColor*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setCornerRadius:'>
+<arg name='cornerRadius' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setCornersPosition:'>
+<arg name='cornersPosition' declared_type='MGCornersPosition' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSplitViewController:'>
+<arg name='splitViewController' declared_type='MGSplitViewController*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController'>
+<retval declared_type='MGSplitViewController*' type='@'/>
+</method>
+</class>
+<class name='MGSplitDividerView'>
+<method selector='allowsDragging'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='drawGripThumbInRect:'>
+<arg name='rect' declared_type='CGRect' index='0' type='{CGRect={CGPoint=ff}{CGSize=ff}}'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setAllowsDragging:'>
+<arg name='allowsDragging' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSplitViewController:'>
+<arg name='splitViewController' declared_type='MGSplitViewController*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController'>
+<retval declared_type='MGSplitViewController*' type='@'/>
+</method>
+</class>
+<class name='MGSplitViewController'>
+<method selector='allowsDraggingDivider'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='cornerViews'>
+<retval declared_type='NSArray*' type='@'/>
+</method>
+<method selector='delegate'>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='detailViewController'>
+<retval declared_type='UIViewController*' type='@'/>
+</method>
+<method selector='dividerStyle'>
+<retval declared_type='MGSplitViewDividerStyle' type='i'/>
+</method>
+<method selector='dividerView'>
+<retval declared_type='MGSplitDividerView*' type='@'/>
+</method>
+<method selector='isLandscape'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='isMasterBeforeDetail'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='isShowingMaster'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='isVertical'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='masterViewController'>
+<retval declared_type='UIViewController*' type='@'/>
+</method>
+<method selector='notePopoverDismissed'>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setAllowsDraggingDivider:'>
+<arg name='allowsDraggingDivider' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDelegate:'>
+<arg name='delegate' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDetailViewController:'>
+<arg name='detailViewController' declared_type='UIViewController*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDividerStyle:'>
+<arg name='dividerStyle' declared_type='MGSplitViewDividerStyle' index='0' type='i'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDividerStyle:animated:'>
+<arg name='newStyle' declared_type='MGSplitViewDividerStyle' index='0' type='i'/>
+<arg name='animate' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setDividerView:'>
+<arg name='dividerView' declared_type='MGSplitDividerView*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMasterBeforeDetail:'>
+<arg name='masterBeforeDetail' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setMasterViewController:'>
+<arg name='masterViewController' declared_type='UIViewController*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setShowsMasterInLandscape:'>
+<arg name='showsMasterInLandscape' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setShowsMasterInPortrait:'>
+<arg name='showsMasterInPortrait' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSplitPosition:'>
+<arg name='splitPosition' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSplitPosition:animated:'>
+<arg name='posn' declared_type='float' index='0' type='f'/>
+<arg name='animate' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setSplitWidth:'>
+<arg name='splitWidth' declared_type='float' index='0' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setVertical:'>
+<arg name='vertical' declared_type='BOOL' index='0' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setViewControllers:'>
+<arg name='viewControllers' declared_type='NSArray*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showMasterPopover:'>
+<arg name='sender' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='showsMasterInLandscape'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='showsMasterInPortrait'>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='splitPosition'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='splitWidth'>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='toggleMasterBeforeDetail:'>
+<arg name='sender' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='toggleMasterView:'>
+<arg name='sender' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='toggleSplitOrientation:'>
+<arg name='sender' declared_type='id' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='viewControllers'>
+<retval declared_type='NSArray*' type='@'/>
+</method>
+</class>
+<class name='NSObject'>
+<method selector='appiraterDidDeclineToRate:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidDismissModalView:animated:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidDisplayAlert:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidOptToRate:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidOptToRemindLater:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterWillPresentModalView:animated:'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='hudWasHidden:'>
+<arg name='hud' declared_type='MBProgressHUD*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:constrainSplitPosition:splitViewSize:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='proposedPosition' declared_type='float' index='1' type='f'/>
+<arg name='viewSize' declared_type='CGSize' index='2' type='{CGSize=ff}'/>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='splitViewController:popoverController:willPresentViewController:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='pc' declared_type='UIPopoverController*' index='1' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willChangeSplitOrientationToVertical:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='isVertical' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willHideViewController:withBarButtonItem:forPopoverController:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='1' type='@'/>
+<arg name='barButtonItem' declared_type='UIBarButtonItem*' index='2' type='@'/>
+<arg name='pc' declared_type='UIPopoverController*' index='3' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willMoveSplitToPosition:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='position' declared_type='float' index='1' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willShowViewController:invalidatingBarButtonItem:'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='1' type='@'/>
+<arg name='barButtonItem' declared_type='UIBarButtonItem*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<informal_protocol name='AppiraterDelegate'>
+<method selector='appiraterDidDeclineToRate:' type='v12@0:4@8'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidDismissModalView:animated:' type='v16@0:4@8B12'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidDisplayAlert:' type='v12@0:4@8'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidOptToRate:' type='v12@0:4@8'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterDidOptToRemindLater:' type='v12@0:4@8'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='appiraterWillPresentModalView:animated:' type='v16@0:4@8B12'>
+<arg name='appirater' declared_type='Appirater*' index='0' type='@'/>
+<arg name='animated' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+</informal_protocol>
+<informal_protocol name='MBProgressHUDDelegate'>
+<method selector='hudWasHidden:' type='v12@0:4@8'>
+<arg name='hud' declared_type='MBProgressHUD*' index='0' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</informal_protocol>
+<informal_protocol name='MGSplitViewControllerDelegate'>
+<method selector='splitViewController:constrainSplitPosition:splitViewSize:' type='f24@0:4@8f12{CGSize=ff}16'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='proposedPosition' declared_type='float' index='1' type='f'/>
+<arg name='viewSize' declared_type='CGSize' index='2' type='{CGSize=ff}'/>
+<retval declared_type='float' type='f'/>
+</method>
+<method selector='splitViewController:popoverController:willPresentViewController:' type='v20@0:4@8@12@16'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='pc' declared_type='UIPopoverController*' index='1' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willChangeSplitOrientationToVertical:' type='v16@0:4@8B12'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='isVertical' declared_type='BOOL' index='1' type='B'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willHideViewController:withBarButtonItem:forPopoverController:' type='v24@0:4@8@12@16@20'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='1' type='@'/>
+<arg name='barButtonItem' declared_type='UIBarButtonItem*' index='2' type='@'/>
+<arg name='pc' declared_type='UIPopoverController*' index='3' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willMoveSplitToPosition:' type='v16@0:4@8f12'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='position' declared_type='float' index='1' type='f'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='splitViewController:willShowViewController:invalidatingBarButtonItem:' type='v20@0:4@8@12@16'>
+<arg name='svc' declared_type='MGSplitViewController*' index='0' type='@'/>
+<arg name='aViewController' declared_type='UIViewController*' index='1' type='@'/>
+<arg name='barButtonItem' declared_type='UIBarButtonItem*' index='2' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</informal_protocol>
+</signatures>

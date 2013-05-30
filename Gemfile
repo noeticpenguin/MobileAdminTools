@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "cocoapods"
+gem "motion-cocoapods"
+#gem "ProMotion", :github => "clearsightstudio/ProMotion", :branch => "version-0.7"
+gem "formotion"
+gem "bubble-wrap"
+gem "sugarcube"
+gem "awesome_print_motion"
+gem "motion-testflight"

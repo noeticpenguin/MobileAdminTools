@@ -1,0 +1,19 @@
+PODS:
+  - Appirater (1.0.3)
+  - FlurrySDK (4.2.1)
+  - MBProgressHUD (0.6)
+  - MGSplitViewController (1.0.0)
+
+DEPENDENCIES:
+  - Appirater
+  - FlurrySDK
+  - MBProgressHUD
+  - MGSplitViewController
+
+SPEC CHECKSUMS:
+  Appirater: 1c146af7b0ef3e2114a17db2e185f94367f63a99
+  FlurrySDK: ed65c2389c6028244cb0e57f31fe370cc1b17f22
+  MBProgressHUD: 9b55a90566fb5d07df0602f6fd9fa04510ad5d52
+  MGSplitViewController: bb9408953857b1c89d4a8db41fbbaa56a4bf889d
+
+COCOAPODS: 0.20.2
