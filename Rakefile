@@ -3,6 +3,7 @@ $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require 'rubygems'
 require 'bundler'
+require 'bubble-wrap/reactor'
 Bundler.require
 require 'sugarcube-repl'
 
@@ -28,15 +29,15 @@ Motion::Project::App.setup do |app|
 	#### Code signature, profile and Identifier info. ##Headache##
 	app.development do
 		app.entitlements['get-task-allow'] = true
-		app.identifier = '745ST2PM9F.com.brightleafsoftware.*'
-		app.provisioning_profile = '/Users/kpoorman/Library/MobileDevice/Provisioning Profiles/BCDD81BF-A03A-4125-A512-1CEA3D370599.mobileprovision'
-		app.codesign_certificate = 'iPhone Distribution: Kevin Poorman'
+		# app.identifier = '745ST2PM9F.com.brightleafsoftware.*'
+		# app.provisioning_profile = '/Users/kpoorman/Library/MobileDevice/Provisioning Profiles/BCDD81BF-A03A-4125-A512-1CEA3D370599.mobileprovision'
+		# app.codesign_certificate = 'iPhone Distribution: Kevin Poorman'
 	end
 
 	app.release do
 		app.entitlements['get-task-allow'] = false
-		app.codesign_certificate = 'iPhone Distribution: Kevin Poorman'
-		app.provisioning_profile = "Madrona_Mobile_Admin_Tools_ad_hoc.mobileprovision"
+		# app.codesign_certificate = 'iPhone Distribution: Kevin Poorman'
+		# app.provisioning_profile = "Madrona_Mobile_Admin_Tools_ad_hoc.mobileprovision"
 	end
 	
 	#### Additional Libraries Needed
@@ -47,6 +48,7 @@ Motion::Project::App.setup do |app|
 	app.libs << "vendor/Salesforce/dist/openssl/openssl/libssl.a"
 	app.libs << "vendor/Salesforce/dist/sqlcipher/sqlcipher/libsqlcipher.a"
 	app.libs << "vendor/Salesforce/dist/SalesforceCommonUtils/Libraries/libSalesforceCommonUtils.a"
+	# app.libs << "vendor/Salesforce/dist/SalesforceSDK/SalesforceSDK/libSalesforceSDK.a"
 	
 	#### Entitlements
 	app.entitlements['keychain-access-groups'] = [
@@ -75,9 +77,14 @@ Motion::Project::App.setup do |app|
 	#  Yeah so trying the precompile versions in vendor dist is just 
 	#  futile on stupid on #thisIsWhyDevsDrink. Even if you get it
 	#  running, it'll bomb with weird ass errors.
+	# app.vendor_project "vendor/Salesforce/native/SalesforceSDK", 
+	# 	:xcode,
+	# 	:scheme => "SalesforceSDK"
+	
 	app.vendor_project "vendor/Salesforce/native/SalesforceSDK", 
 		:xcode,
-		:scheme => "SalesforceSDK"
+		:target => "SalesforceSDK",
+		:headers_dir => "SalesforceSDK/Classes"
 	
 	#### CocoaPods!
 	# Who doesn't love them some cocoaPod goodness?
@@ -100,23 +107,23 @@ end
 
 desc "Open latest crash log"
 task :log do
-  app = Motion::Project::App.config
-  exec "less '#{Dir[File.join(ENV['HOME'], "/Library/Logs/DiagnosticReports/#{app.name}*")].last}'"
+	app = Motion::Project::App.config
+	exec "less '#{Dir[File.join(ENV['HOME'], "/Library/Logs/DiagnosticReports/#{app.name}*")].last}'"
 end
 
 # Rake helper tasks
 
 desc "Run simulator in retina mode"
 task :retina do
-  exec "bundle exec rake simulator retina=true"
+	exec "bundle exec rake simulator retina=true"
 end
 
 desc "Run simulator on iPad"
 task :ipad do
-  exec "bundle exec rake simulator device_family=ipad"
+	exec "bundle exec rake simulator device_family=ipad"
 end
 
 desc "Run simulator on iPad in retina mode"
 task :ipadretina do
-  exec "bundle exec rake simulator retina=true device_family=ipad"
+	exec "bundle exec rake simulator retina=true device_family=ipad"
 end
