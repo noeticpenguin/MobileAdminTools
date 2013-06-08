@@ -1,4 +1,4 @@
-class HomeScreen < ProMotion::TableScreen
+class HomeScreen < PM::TableScreen
 	title "Users"
 	searchable placeholder: "Search Users"
 	refreshable callback: :on_refresh,
@@ -8,6 +8,8 @@ class HomeScreen < ProMotion::TableScreen
 	updated_time_format: "%l:%M %p"
 
 	def on_appear
+		add_nav_bar
+		set_nav_bar_button :right, title: "Logout", action: :logout, type: UIBarButtonItemStyleDone
 		query_sf_for_users
 		@refresh_table_data = true
 	end
@@ -53,9 +55,19 @@ class HomeScreen < ProMotion::TableScreen
   	# table_data.collect{|section| section[:title][0] } unless table_data.nil?
 	end
 
+	def logout
+		UIAlertView.alert("Logout?", buttons: ["Cancel", "OK"],
+			message: "Logout from this Salesforce Org?") { |button|
+			if button == "OK"
+				App.delegate.logout
+				App.delegate.navController = nil
+			end
+		}
+	end
+
 	def open_user(args)
-		ap args #[:cell][:title]
-		open UserDetailsScreen.new id: args[:id]
+		# ap args #[:cell][:title]
+		open_screen UserDetailsScreen.new id: args[:id]
 	end
 
 end

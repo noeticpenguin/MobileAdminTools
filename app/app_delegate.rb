@@ -5,11 +5,13 @@ class AppDelegate < SFNativeRestAppDelegate
 	include ProMotion::DelegateHelper
 	include ProMotion::DelegateNotifications
 
-	attr_accessor :splitViewController, :aps_notification
+	attr_accessor :splitViewController, :aps_notification, :navController
 	
 	# static NSString *const OAuthLoginDomain = @"test.salesforce.com";
+	# Useful for forcing authentication to a sandbox domain.
 	def oauthLoginDomain()
-		"test.salesforce.com"
+		# "test.salesforce.com"
+		"login.salesforce.com"
 	end
 
 	def remoteAccessConsumerKey()
@@ -23,7 +25,6 @@ class AppDelegate < SFNativeRestAppDelegate
 	def application(application, didFinishLaunchingWithOptions:launchOptions)
 		super
 		apply_status_bar
-		# on_load application, launchOptions
 		check_for_push_notification launchOptions
 		true
 	end
@@ -33,6 +34,7 @@ class AppDelegate < SFNativeRestAppDelegate
 	end
 
 	def on_load(app, options)
+	@home = HomeScreen.new
 	# 	ap "on_load running ---- woot"
 	# 	# @home = HomeScreen.new
 	# 	# @home.navigation_controller = @navController
@@ -43,7 +45,6 @@ class AppDelegate < SFNativeRestAppDelegate
 	end
 
 	def newRootViewController
-		@home = HomeScreen.new
 		# @navController = UINavigationController.alloc.initWithRootViewController(RootViewController.alloc.initWithNibName(nil, bundle: nil))
 		@navController = UINavigationController.alloc.initWithRootViewController(@home)
 		@navController

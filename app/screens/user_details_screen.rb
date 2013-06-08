@@ -1,4 +1,4 @@
-class UserDetailsScreen < ProMotion::GroupedTableScreen
+class UserDetailsScreen < PM::GroupedTableScreen
 	title "User Details"
 	refreshable callback: :on_refresh,
 	pull_message: "Pull to refresh",
@@ -9,7 +9,6 @@ class UserDetailsScreen < ProMotion::GroupedTableScreen
 	attr_accessor :id
 
 	def on_load
-		ap self.id
 		@basic_info = %w{Username IsActive Name Division Department Title Email Phone Fax MobilePhone Alias CommunityNickname EmployeeNumber ReceivesInfoEmails ReceivesAdminInfoEmails}
 		@audit_info = %w{LastLoginDate LastPasswordChangeDate CreatedDate CreatedById LastModifiedDate LastModifiedById}
 		@sub_screens = %w{UserRoleId ProfileId ManagerId DelegatedApproverId}
@@ -140,7 +139,17 @@ class UserDetailsScreen < ProMotion::GroupedTableScreen
 	end
 
 	def reset_password args
-		ap args
+		UIAlertView.alert("Reset Users Password?", buttons: ["Cancel", "OK"],
+			message: "Salesforce will send a password reset email to Users email address") { |button|
+			if button == "OK"
+				ap @id
+				results = SFRestAPI.sharedInstance.requestPasswordResetForUser(
+					@id, # id of user to invoke password reset. 
+					failBlock: lambda {|e| ap e }, #lambda to run in case of failure. @todo I should throw a modal warning here.
+					completeBlock: lambda {|e| ap e} #lambda to run in case of success
+				)
+			end
+		}
 	end
 
 	def toggle_switch arguments

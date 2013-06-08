@@ -3,7 +3,7 @@ $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require 'rubygems'
 require 'bundler'
-require 'bubble-wrap/reactor'
+
 Bundler.require
 require 'sugarcube-repl'
 
@@ -67,7 +67,7 @@ Motion::Project::App.setup do |app|
 
 	# Salesforce SDK oAuth Library
 	# YOU MUST HAND COMPILE FROM SOURCE TO AVOID A SELECTOR
-	# 	NOT FOUND ERROR ON MACADDRESS. @JUSTSAYING.
+	# 	NOT FOUND ERROR ON MACADDRESS. #JUSTSAYING.
 	app.vendor_project "vendor/Salesforce/native/SalesforceOAuth", 
 		:xcode, 
 		:target => 'SalesforceOAuth', 
