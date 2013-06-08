@@ -32,7 +32,7 @@ class AppDelegate < SFNativeRestAppDelegate
 			on_unload if respond_to?(:on_unload)
 	end
 
-	# def on_load(app, options)
+	def on_load(app, options)
 	# 	ap "on_load running ---- woot"
 	# 	# @home = HomeScreen.new
 	# 	# @home.navigation_controller = @navController
@@ -40,7 +40,7 @@ class AppDelegate < SFNativeRestAppDelegate
 	# 	# # You shouldn't have to do this, but if it doesn't work, do it. 
 	# 	# # This might be a bug. Report it if you do indeed have to enable this line.
 	# 	# open @home
-	# end
+	end
 
 	def newRootViewController
 		@home = HomeScreen.new

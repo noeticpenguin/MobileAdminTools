@@ -35,12 +35,12 @@ class HomeScreen < ProMotion::TableScreen
 
 		update_table_data if @refresh_table_data
 		@refresh_table_data = false
+		end_refreshing
 		@data
 	end
 
 	def on_refresh
 		query_sf_for_users
-		end_refreshing
 		update_table_data
 	end
 
