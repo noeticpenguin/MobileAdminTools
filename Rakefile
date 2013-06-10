@@ -18,10 +18,10 @@ Motion::Project::App.setup do |app|
 	
 	#### Application Artwork. 
 	app.icons = ["Icon.png",    # ipad and iphone 3 standard icon
-							 "Icon@2x.png", # Retina iphone/ipad icon
-							 "Icon-72.png", # Fill in as you learn
-							 "Icon-58.png", # Fill in as you learn
-							 "Icon-29.png"] # Fill in as you learn
+								"Icon@2x.png", # Retina iphone/ipad icon
+								"Icon-72.png", # Fill in as you learn
+								"Icon-58.png", # Fill in as you learn
+								"Icon-29.png"] # Fill in as you learn
 
 	#### Application Frameworks
 	app.frameworks += %w(CFNetwork CoreData MobileCoreServices SystemConfiguration Security MessageUI QuartzCore OpenGLES CoreGraphics sqlite3)
@@ -99,9 +99,10 @@ Motion::Project::App.setup do |app|
 	end
 
 	#TestFlight!
-	app.testflight.sdk = 'vendor/TestFlight'
-	app.testflight.api_token = '21ab92a1ea9dfaf5b11a2679a0db3555_ODQ3MDU4MjAxMy0wMS0yNSAxMzowNTo0NS42Njk4ODc'
-	app.testflight.team_token = '1d010f0c240219bd97c8e4c40729e00b_MTc5NTc4MjAxMy0wMS0yOCAxNTowMTo1OC43MDY0MDM'
+	# Removing testflight tokens
+	# app.testflight.sdk = 'vendor/TestFlight'
+	# app.testflight.api_token = ''
+	# app.testflight.team_token = ''
 
 end
 
@@ -111,8 +112,6 @@ task :log do
 	exec "less '#{Dir[File.join(ENV['HOME'], "/Library/Logs/DiagnosticReports/#{app.name}*")].last}'"
 end
 
-# Rake helper tasks
-
 desc "Run simulator in retina mode"
 task :retina do
 	exec "bundle exec rake simulator retina=true"
@@ -121,9 +120,4 @@ end
 desc "Run simulator on iPad"
 task :ipad do
 	exec "bundle exec rake simulator device_family=ipad"
-end
-
-desc "Run simulator on iPad in retina mode"
-task :ipadretina do
-	exec "bundle exec rake simulator retina=true device_family=ipad"
 end
