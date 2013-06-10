@@ -33,6 +33,9 @@ Please note, this app utilizes the Salesforce native iOS SDK; however it is writ
 ## YouTube Video Demonstration
 YouTube Video - Mobile Admin Tools | http://www.youtube.com/watch?v=nqC7KaQwwgk
 
+## Known Issues and Limitations
+Please see the issue tracker at: https://github.com/noeticpenguin/MobileAdminTools/issues for the current list of known issues
+
 ## Rakefile Details
 As those familiar with RubyMotion will no doubt recognize, the Rakefile is central to a Rm project's management.
 What follows is an annontated rakefile detailing whats needed to utilize the Salesforce Mobile Sdk iOS (1.x v) 
