@@ -1,48 +1,62 @@
 class AppDelegate < SFNativeRestAppDelegate
 
-  attr_accessor :splitViewController
-  
-  # static NSString *const OAuthLoginDomain = @"test.salesforce.com";
-  def oauthLoginDomain()
-    "test.salesforce.com"
-  end
+	include ProMotion::ScreenTabs
+	include ProMotion::SplitScreen if NSBundle.mainBundle.infoDictionary["UIDeviceFamily"].include?("2") # Only with iPad
+	include ProMotion::DelegateHelper
+	include ProMotion::DelegateNotifications
 
-  def remoteAccessConsumerKey()
-    '3MVG9y6x0357HledkDGHVNgI_1aBN9wuU4g1Nulz.PBAYr3Q.76MuHhUbgdsFhWQhmy7hQ0RUBJDCiWy02ZvF'
-  end
+	attr_accessor :splitViewController, :aps_notification, :navController
+	
+	# static NSString *const OAuthLoginDomain = @"test.salesforce.com";
+	# Useful for forcing authentication to a sandbox domain.
+	def oauthLoginDomain()
+		# "test.salesforce.com"
+		"login.salesforce.com"
+	end
 
-  def oauthRedirectURI()
-    'testsfdc:///mobilesdk/detect/oauth/done'
-  end
+	def remoteAccessConsumerKey()
+		'3MVG9y6x0357HledkDGHVNgI_1aBN9wuU4g1Nulz.PBAYr3Q.76MuHhUbgdsFhWQhmy7hQ0RUBJDCiWy02ZvF'
+	end
 
-  def application(application, didFinishLaunchingWithOptions:launchOptions)
-    super
-  end
+	def oauthRedirectURI()
+		'testsfdc:///mobilesdk/detect/oauth/done'
+	end
 
-  def newRootViewController
-    # # Generate the listViewController object for the split view:
-    # listViewController = ObjectListController.alloc.initWithNibName(nil, bundle: nil)
-    # # Generate the detail view
-    # detailsViewController = DetailViewDefaultController.alloc.init
-    # # Generate the split view controller
-    # @splitViewController = MGSplitViewController.alloc.init
+	def application(application, didFinishLaunchingWithOptions:launchOptions)
+		super
+		apply_status_bar
+		check_for_push_notification launchOptions
+		true
+	end
 
-    # # Give the splitViewController access to the detail view.
-    # @splitViewController.delegate = detailsViewController
-    # # Give the list view access to the detail view
-    # listViewController.delegate = detailsViewController
+	def applicationWillTerminate(application)
+			on_unload if respond_to?(:on_unload)
+	end
 
-    # # generate a Nav controller for the detail view, and assign the root view to the detail view controller
-    # detailsNav = UINavigationController.alloc.initWithRootViewController(detailsViewController)
-    # # Assign the listview and the detail nav  controllers to the split view.
-    # @splitViewController.viewControllers = [listViewController, detailsNav]
-    # # splitViewController.modalTransitionStyle = UIModalPresentationCurrentContext
-    # # puts "############## #{splitViewController.modalTransitionStyle}"
+	#Flurry exception handler
+	def uncaughtExceptionHandler(exception)
+		Flurry.logError("Uncaught", message:"Crash!", exception:exception)
+	end
 
-    # @splitViewController
-    # #origial
-    @navController = UINavigationController.alloc.initWithRootViewController(RootViewController.alloc.initWithNibName(nil, bundle: nil))
-    @navController
-  end
+	#apirater setup
+	Appirater.setAppId NSBundle.mainBundle.objectForInfoDictionaryKey('APP_STORE_ID')
+	Appirater.setDaysUntilPrompt 5
+	Appirater.setUsesUntilPrompt 10
+	Appirater.setTimeBeforeReminding 5
+	Appirater.appLaunched true
+
+	def on_load(app, options)
+		@home = HomeScreen.new
+		
+		unless Device.simulator?
+			NSSetUncaughtExceptionHandler("uncaughtExceptionHandler")
+			Flurry.startSession("Z579ZYX298X3HM6RFF9W")
+		end
+	end
+
+	def newRootViewController
+		@navController = UINavigationController.alloc.initWithRootViewController(@home)
+		@navController
+	end
 
 end

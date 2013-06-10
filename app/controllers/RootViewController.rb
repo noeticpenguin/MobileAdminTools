@@ -6,6 +6,16 @@ class RootViewController < UITableViewController
     super.didReceiveMemoryWarning
   end
 
+  def on_load(app, options)
+    ap "on_load running ---- woot"
+    @home = HomeScreen.new
+    @home.navigation_controller = @navController
+    @home.navigationController = @navController 
+    # You shouldn't have to do this, but if it doesn't work, do it. 
+    # This might be a bug. Report it if you do indeed have to enable this line.
+    open @home
+  end
+
   def viewDidLoad
     super
 
@@ -16,18 +26,11 @@ class RootViewController < UITableViewController
     @hud.labelText = "Refreshing"
     @hud.animationType = MBProgressHUDAnimationZoom
     self.navigationController.view.addSubview(@hud)
-    @hud.show(true) # and turn the hud on.
 
     # Setup the Pull To Refresh
     @refreshControl = UIRefreshControl.alloc.init
     @refreshControl.addTarget(self, action: :refresh, forControlEvents: UIControlEventValueChanged)
     self.refreshControl = @refreshControl
-
-    # UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    # [refreshControl addTarget:self action:@selector(refresh)
-    #      forControlEvents:UIControlEventValueChanged]; 
-    # self.refreshControl = refreshControl;
-
 
     search_bar = UISearchBar.alloc.initWithFrame([[0,0],[320,44]])
     search_bar.delegate = self
@@ -43,8 +46,7 @@ class RootViewController < UITableViewController
     self.navigationItem.leftBarButtonItem = leftButton
     
     ap "refreshing if..."
-    refresh if !load_from_cache
-    @hud.hide(true)
+    refresh
   end
 
   def searchBarSearchButtonClicked(search_bar)
@@ -76,14 +78,6 @@ class RootViewController < UITableViewController
 
   def logout
     App.delegate.logout
-  end
-
-  def load_from_cache()
-    ap "Running Load From Cache"
-    @cached_users = UserCacheResult.load.records rescue nil
-    return false if @cached_users.nil?
-    @data = reindex_table_data(@cached_users)
-    tableView.reloadData
   end
 
   # SFRestAPIDelegate
