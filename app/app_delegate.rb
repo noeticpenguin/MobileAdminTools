@@ -15,7 +15,7 @@ class AppDelegate < SFNativeRestAppDelegate
 	end
 
 	def remoteAccessConsumerKey()
-		'3MVG9y6x0357HledkDGHVNgI_1aBN9wuU4g1Nulz.PBAYr3Q.76MuHhUbgdsFhWQhmy7hQ0RUBJDCiWy02ZvF'
+		'Removed.'
 	end
 
 	def oauthRedirectURI()
@@ -50,7 +50,7 @@ class AppDelegate < SFNativeRestAppDelegate
 		
 		unless Device.simulator?
 			NSSetUncaughtExceptionHandler("uncaughtExceptionHandler")
-			Flurry.startSession("Z579ZYX298X3HM6RFF9W")
+			Flurry.startSession("Removed.")
 		end
 	end
 
