@@ -10,10 +10,10 @@ require 'sugarcube-repl'
 Motion::Project::App.setup do |app|
 	# Use `rake config' to see complete project settings.
 	#### General Information
-	app.name = 'mobileAdmin2'
+	app.name = 'Mobile Admin Tools'
 	app.version = "1.0"
 	app.deployment_target = "6.0" #Minimum OS version for client device
-	app.device_family = [:iphone, :ipad] #what devices can run this?
+	app.device_family = [:iphone] #what devices can run this?
 	app.interface_orientations = [:portrait, :landscape_left, :landscape_right] #hopefully obvious
 	
 	#### Application Artwork. 
@@ -91,7 +91,7 @@ Motion::Project::App.setup do |app|
 	app.pods do
 		# pod 'RestKit' #Salesforce relies on THEIR VERSION! DO NOT USE POD
 		pod 'FlurrySDK' #Flury Mobile Analytics SDK
-		pod 'Appirater' #RATE MY APP DAMN YOU!
+		pod 'Appirater' #RATE MY APP DARN YOU!
 		pod 'MGSplitViewController' #A more feature rich split view controller
 		pod 'MBProgressHUD' #For displaying pretty spinners with "wait already!" messages
 		# pod 'SQLCipher' #don't use this. #iWasTemptedToo. #fail.

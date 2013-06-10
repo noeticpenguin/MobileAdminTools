@@ -1,4 +1,4 @@
-class HomeScreen < PM::TableScreen
+class HomeScreen < ProMotion::TableScreen
 	title "Users"
 	searchable placeholder: "Search Users"
 	refreshable callback: :on_refresh,
@@ -10,6 +10,7 @@ class HomeScreen < PM::TableScreen
 	def on_appear
 		add_nav_bar
 		set_nav_bar_button :right, title: "Logout", action: :logout, type: UIBarButtonItemStyleDone
+		set_nav_bar_button :left, title: "About", action: :about, type: UIBarButtonItemStyleDone
 		query_sf_for_users
 		@refresh_table_data = true
 	end
@@ -53,6 +54,10 @@ class HomeScreen < PM::TableScreen
 	def table_data_index
 		return ("A".."Z").to_a
   	# table_data.collect{|section| section[:title][0] } unless table_data.nil?
+	end
+
+	def about
+		open_screen AboutScreen.new
 	end
 
 	def logout
