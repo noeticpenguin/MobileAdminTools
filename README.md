@@ -68,16 +68,16 @@ Motion::Project::App.setup do |app|
 	
 	#### Application Artwork. 
 	app.icons = ["Icon.png",    # <- iPhone non-retina standard icon
-							 "Icon@2x.png"] # <- Retina iPhone icon
+		    "Icon@2x.png"] # <- Retina iPhone icon
 
 	#### Application Frameworks
-  # This next line details the list of iOS frameworks that this application will require.
-  # While this list is specific to this application, it's pretty much the bare minimum needed
-  # for utilizing the Salesforce mobile SDK (iOS)
+ 	# This next line details the list of iOS frameworks that this application will require.
+  	# While this list is specific to this application, it's pretty much the bare minimum needed
+  	# for utilizing the Salesforce mobile SDK (iOS)
 	app.frameworks += %w(CFNetwork CoreData MobileCoreServices SystemConfiguration Security MessageUI QuartzCore OpenGLES CoreGraphics sqlite3)
 	
 	#### Code signature, profile and Identifier info. ##Headache##
-  # Note well the difference between development (simulator use) and relase (on device use)!
+  	# Note well the difference between development (simulator use) and relase (on device use)!
 	app.development do
 		app.entitlements['get-task-allow'] = true
 		# app.identifier = '<<< INSERT YOUR APP IDENTIFIER HERE >>>'
@@ -93,29 +93,40 @@ Motion::Project::App.setup do |app|
 	end
 	
 	#### Additional Libraries Needed
-	app.libs << "/usr/lib/libxml2.2.dylib"
-	app.libs << "/usr/lib/libsqlite3.0.dylib"
-	app.libs << "/usr/lib/libz.dylib"
-	app.libs << "vendor/Salesforce/dist/openssl/openssl/libcrypto.a"
-	app.libs << "vendor/Salesforce/dist/openssl/openssl/libssl.a"
-	app.libs << "vendor/Salesforce/dist/sqlcipher/sqlcipher/libsqlcipher.a"
-	app.libs << "vendor/Salesforce/dist/SalesforceCommonUtils/Libraries/libSalesforceCommonUtils.a"
-	# app.libs << "vendor/Salesforce/dist/SalesforceSDK/SalesforceSDK/libSalesforceSDK.a"
+	# These are the minimum required libraries for use with the Salesforce mobile iOS SDK
+	app.libs << "/usr/lib/libxml2.2.dylib" # <- XML? ... yeah, we need it.
+	app.libs << "/usr/lib/libsqlite3.0.dylib" # <- Need to link against Sqlite 3
+	app.libs << "/usr/lib/libz.dylib" # <- Need to link against zlib
+	# This rakefile assumes you're following the practice of placing a copy of the Salesforce
+	# iOS sdk under <<ProjectRoot>>/vendor/Salesforce
+	app.libs << "vendor/Salesforce/dist/openssl/openssl/libcrypto.a" # <- Salesforce provided crypto lib
+	app.libs << "vendor/Salesforce/dist/openssl/openssl/libssl.a" # <- Salesforce provided SSL lib
+	app.libs << "vendor/Salesforce/dist/sqlcipher/sqlcipher/libsqlcipher.a" # <- Salesforce Provided Sqlite Encryption library
+	app.libs << "vendor/Salesforce/dist/SalesforceCommonUtils/Libraries/libSalesforceCommonUtils.a" # <- Salesforce provided, Non-open source library!
 	
 	#### Entitlements
+	# In order for the application to securely store oAuth credentials, Salesforce apps need
+	# the keychain-access-groups entitlement, this shouldn't change.
 	app.entitlements['keychain-access-groups'] = [
 		app.seed_id + '.' + app.identifier
 	]
 
 	#### Vendor Projects, because sometimes, precompiled code sucks.
+	# While Salesforce provides precompiled versions of the following libraries under
+	# /vendor/Salesforce/dist/<<Lib Name>> the following libraries *MUST* be compiled
+	# so that rubymotion builds, and includes the bridgesupport file. This provides 
+	# Rubymotion with access to methods that are in Obj-c categories etc. 
+	
 	# Restkit, because the pod isn't good enough.
 	# YOU MUST USE THE SALESFORCE DISTRIBUTED VERSION
 	# YOU MUST HAND COMPILE IT VIA VENDOR_PROJECT TO AVOID
-	# 	RANDOM SELECTOR_NOT_FOUND ERRORS. THAT IS ALL.
-	app.vendor_project "vendor/Salesforce/external/RestKit/RestKit", 
-		:xcode, 
-		:target => 'RestKit', 
-		:headers_dir => "build/RestKit"
+	#   RANDOM SELECTOR_NOT_FOUND ERRORS. THAT IS ALL.
+	app.vendor_project "vendor/Salesforce/external/RestKit/RestKit", # <- path to root of library source
+		:xcode, # <- either :xcode or :static, use :xcode if there is a .xcodeproj file present
+		:target => 'RestKit', # <- if :xcode, specify the target you want to build
+		:headers_dir => "build/RestKit" # <- *this is the crucial bit* RubyMotion builds the
+						# .bridgesupport file from the headers, 
+						# YOU MUST SPECIFY THE HEADER DIR.
 
 	# Salesforce SDK oAuth Library
 	# YOU MUST HAND COMPILE FROM SOURCE TO AVOID A SELECTOR
@@ -129,54 +140,107 @@ Motion::Project::App.setup do |app|
 	#  Yeah so trying the precompile versions in vendor dist is just 
 	#  futile on stupid on #thisIsWhyDevsDrink. Even if you get it
 	#  running, it'll bomb with weird ass errors.
-	# app.vendor_project "vendor/Salesforce/native/SalesforceSDK", 
-	# 	:xcode,
-	# 	:scheme => "SalesforceSDK"
-	
 	app.vendor_project "vendor/Salesforce/native/SalesforceSDK", 
 		:xcode,
 		:target => "SalesforceSDK",
-		:headers_dir => "SalesforceSDK/Classes"
+		:headers_dir => "SalesforceSDK/Classes" # <- This is the most crucial .bridgesupport file
+							# to be generated. 
 	
 	#### CocoaPods!
 	# Who doesn't love them some cocoaPod goodness?
 	app.pods do
-		# pod 'RestKit' #Salesforce relies on THEIR VERSION! DO NOT USE POD
-		pod 'FlurrySDK' #Flury Mobile Analytics SDK
-		pod 'Appirater' #RATE MY APP DARN YOU!
-		pod 'MGSplitViewController' #A more feature rich split view controller
-		pod 'MBProgressHUD' #For displaying pretty spinners with "wait already!" messages
-		# pod 'SQLCipher' #don't use this. #iWasTemptedToo. #fail.
-		# pod 'FMDB' #Database wrapper not unlike active record.
+		# pod 'RestKit' # <- Salesforce relies on THEIR FORK! DO NOT USE POD
+		pod 'FlurrySDK' # <- Flury Mobile Analytics SDK, this is optional, but Mobile Data Tools uses it.
+		pod 'Appirater' # <- Cocoa Pod for built in automatic prompting of "rate my app please", Options but Mobile Data Tools uses it.
+		pod 'MGSplitViewController' # <- A more feature rich split view controller, here as an example
+		pod 'MBProgressHUD' # <- For displaying pretty spinners with "wait already!" messages. Not in use in this app.
+		# pod 'SQLCipher' # <- don't use this. #iWasTemptedToo. #fail.
+		# pod 'FMDB' # <- Database wrapper not unlike active record. Not in use in this app
 	end
 
 	#TestFlight!
+	# While test flight is normally included via a cocoapod, RubyMotion has it's own Gem. This sets it up.
+	# This is optional, but highly recommended for on-device testing.
 	app.testflight.sdk = 'vendor/TestFlight'
-	app.testflight.api_token = '21ab92a1ea9dfaf5b11a2679a0db3555_ODQ3MDU4MjAxMy0wMS0yNSAxMzowNTo0NS42Njk4ODc'
-	app.testflight.team_token = '1d010f0c240219bd97c8e4c40729e00b_MTc5NTc4MjAxMy0wMS0yOCAxNTowMTo1OC43MDY0MDM'
+	app.testflight.api_token = '<<< TEST FLIGHT API TOKEN HERE >>>'
+	app.testflight.team_token = '<<< TEST FLIGHT TEAM TOKEN HERE >>>'
 
-end
+end # <- End App.setup block. 
 
-desc "Open latest crash log"
+
+### Helper Rake Tasks
+# These Rake tasks are helper tasks designed to make development smoother / better / faster / stronger!
+# #6million$Dev
+
+desc "Open latest crash log" # <- When the app crashes in the simulator it writes a .datXXXX file in the root 
+				# of the project containing the crash log. this opens the latest one.
 task :log do
 	app = Motion::Project::App.config
 	exec "less '#{Dir[File.join(ENV['HOME'], "/Library/Logs/DiagnosticReports/#{app.name}*")].last}'"
 end
 
-# Rake helper tasks
-
-desc "Run simulator in retina mode"
+desc "Run simulator in retina mode" # <- default is non-retina mode
 task :retina do
 	exec "bundle exec rake simulator retina=true"
 end
 
-desc "Run simulator on iPad"
+desc "Run simulator on iPad" # <- Run on an Ipad, if device family includes :ipad
 task :ipad do
 	exec "bundle exec rake simulator device_family=ipad"
 end
 
-desc "Run simulator on iPad in retina mode"
-task :ipadretina do
-	exec "bundle exec rake simulator retina=true device_family=ipad"
-end
+```
+
+## Additions / modifications to the SFRestAPI and SFRestAPI+Blocks classes
+This app allows administrators to issue a password reset request for a given user. In order to do so, additional methods were added to the Salesforce provided SFRestAPI and SFRestAPI+Blocks classes. Details of those changes are here:
+
+```Obj-c
+// Found in: SFRestAPI.m
+// The Password management endpoint was added in api v24.0, so we must use at least that version.
+// SDK ships with a default of v23.0
+NSString* const kSFRestDefaultAPIVersion = @"v24.0";
+```
+
+```Obj-c
+// Found in: SFRestAPI.h
+/**
+ * Returns a `SFRestRequest` which executes a user password reset.
+ * @param uid a string containing the uuid of the user who's password should be reset.
+ * @see http://www.salesforce.com/us/developer/docs/api_rest/Content/resources_sobject_user_password.htm
+ */
+- (SFRestRequest *)requestForUserPasswordReset:(NSString *)uid;
+```
+
+```Obj-c
+// Found in: SFRestAPI.m
+- (SFRestRequest *)requestForUserPasswordReset:(NSString *)uid {
+    NSString *path = [NSString stringWithFormat:@"/%@/sobjects/User/%@/password", self.apiVersion, uid];
+    return [SFRestRequest requestWithMethod:SFRestMethodDELETE path:path queryParams:nil];
+}
+```
+
+###And for Blocks support
+```Obj-c
+// Found in: SFRestAPI+Blocks.h
+/**
+ * Executes a request to reset a users password via REST API
+ * @param failBlock the block to be exectured when the request fails (timeout, cancel, or error)
+ * @param coompleteBlock the block to be executed when the request successfully completes
+ * @return the newly sent SFRestRequest
+ */
+- (SFRestRequest *) requestPasswordResetForUser:(NSString *)query 
+                                      failBlock:(SFRestFailBlock)failBlock 
+                                  completeBlock:(SFRestDictionaryResponseBlock)completeBlock;
+```
+
+```Obj-c
+// Found in: SFRestAPI+Blocks.m
+- (SFRestRequest *) requestPasswordResetForUser:(NSString *)uid failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestDictionaryResponseBlock)completeBlock {
+    SFRestRequest *request = [[SFRestAPI sharedInstance] requestForUserPasswordReset:uid];
+    [self sendRESTRequest:request
+                failBlock:failBlock
+            completeBlock:completeBlock];
+    
+    return request;
+}
 ```
