@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Mobileadmintools by noeticpenguin</title>
+    <title>Mobile Admin Tools by noeticpenguin</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,8 +17,8 @@
   <body>
 
       <header>
-        <h1>Mobileadmintools</h1>
-        <p>Mobile Admin Tools</p>
+        <h1>Mobile Admin Tools</h1>
+        <p>Helping Salesforce Admins make quick work of the mundane.</p>
       </header>
 
       <div id="banner">
@@ -42,9 +42,254 @@
         <h1>
 <a name="mobileadmintools" class="anchor" href="#mobileadmintools"><span class="octicon octicon-link"></span></a>MobileAdminTools</h1>
 
-<p>Mobile Admin Tools is a RubyMotion project for Salesforce Administrators.</p>
+<h2>
+<a name="what-is-mobile-admin-tools" class="anchor" href="#what-is-mobile-admin-tools"><span class="octicon octicon-link"></span></a>What is Mobile Admin Tools?</h2>
 
-<p>Specifically, Mobile Admin Tools currently gives Administrators on the go access to their org's users and their users information. Additionally, Administrators can reset users' passwords, set permissions and verify Roles, Profiles, Managers etc.</p>
+<p>I wanted to write an app that would help admins do their jobs more easily and efficiently, and a poll of 25 or so admins revealed that the top 2 real-world frustrations for Salesforce admins are password resets and user management. Mobile Admin Tools was created to help with those two pain points. </p>
+
+<p>Features you should note: </p>
+
+<ul>
+<li><p>The "pull to refresh" functionality builtin to all data viws </p></li>
+<li><p>The searchable user view with index on the side.  </p></li>
+</ul><p>Most importantly, while viewing a particular user, admins can: </p>
+
+<ul>
+<li><p>Deactivate and / or (re)activate users, </p></li>
+<li>
+<p>Initiate password reset, show email</p>
+
+<ul>
+<li>Just for fun, I added the option to tweet on password reset to share such inspirational tidbits as "Just reset a user password from my phone.  MobileAdminTools ftw!  #MightBeAtTheBar" </li>
+<li>This isn't intended to name &amp; shame users for needing their password reset, but rather to socialize Mobile Admin Tools and bring a bit of levity to otherwise frustratingly boring work.</li>
+</ul>
+</li>
+<li><p>View login history and other important user details such as role and profile, </p></li>
+<li><p>Manage user settings - all from their iPhones.  </p></li>
+</ul><p>Please note, this app utilizes the Salesforce native iOS SDK; however it is written in RubyMotion.</p>
+
+<h2>
+<a name="youtube-video-demonstration" class="anchor" href="#youtube-video-demonstration"><span class="octicon octicon-link"></span></a>YouTube Video Demonstration</h2>
+
+<p>YouTube Video - Mobile Admin Tools | <a href="http://www.youtube.com/watch?v=nqC7KaQwwgk">http://www.youtube.com/watch?v=nqC7KaQwwgk</a></p>
+
+<h2>
+<a name="known-issues-and-limitations" class="anchor" href="#known-issues-and-limitations"><span class="octicon octicon-link"></span></a>Known Issues and Limitations</h2>
+
+<p>Please see the issue tracker at: <a href="https://github.com/noeticpenguin/MobileAdminTools/issues">https://github.com/noeticpenguin/MobileAdminTools/issues</a> for the current list of known issues</p>
+
+<h2>
+<a name="rakefile-details" class="anchor" href="#rakefile-details"><span class="octicon octicon-link"></span></a>Rakefile Details</h2>
+
+<p>As those familiar with RubyMotion will no doubt recognize, the Rakefile is central to a Rm project's management.
+What follows is an annontated rakefile detailing whats needed to utilize the Salesforce Mobile Sdk iOS (1.x v) 
+SDK within a RubyMotion project. </p>
+
+<p>A quick note: I have discovered a commonly held, but incorrect belief that RubyMotion projects are:</p>
+
+<ul>
+<li>Slow</li>
+<li>Not native applications</li>
+<li>Unable to utilize the native SDK's and Frameworks</li>
+<li>Unable to access / utilize open source cocoaTouch projects via CocoaPods.</li>
+</ul><p>None of the above are true, and this project demonstrates a <em>fast</em> (well, depending on your network connection)
+<em>native</em> iOS application that utilizes not only iOS frameworks like UIKit but also third party frameworks, and <em>cocoapoods</em></p>
+
+<div class="highlight"><pre><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="vg">$:</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="s2">"/Library/RubyMotion/lib"</span><span class="p">)</span>
+<span class="nb">require</span> <span class="s1">'motion/project/template/ios'</span>
+<span class="nb">require</span> <span class="s1">'rubygems'</span>
+<span class="nb">require</span> <span class="s1">'bundler'</span>
+
+<span class="no">Bundler</span><span class="o">.</span><span class="n">require</span>
+<span class="nb">require</span> <span class="s1">'sugarcube-repl'</span>
+
+<span class="ss">Motion</span><span class="p">:</span><span class="ss">:Project</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">setup</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+  <span class="c1"># Use `rake config' to see complete project settings.</span>
+    <span class="c1">#### General Information</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Mobile Admin Tools'</span> <span class="c1"># &lt;-Set your project name here.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s2">"1.0"</span> <span class="c1"># &lt;- This is especially useful during TestFlight testing!</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">deployment_target</span> <span class="o">=</span> <span class="s2">"6.0"</span> <span class="c1"># &lt;- Minimum OS version for client device</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">device_family</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:iphone</span><span class="o">]</span> <span class="c1"># &lt;- What devices can run this? other options include: :ipad</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">interface_orientations</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:portrait</span><span class="p">,</span> <span class="ss">:landscape_left</span><span class="p">,</span> <span class="ss">:landscape_right</span><span class="o">]</span> <span class="c1"># &lt;- Hopefully obvious</span>
+
+    <span class="c1">#### Application Artwork. </span>
+    <span class="n">app</span><span class="o">.</span><span class="n">icons</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"Icon.png"</span><span class="p">,</span>    <span class="c1"># &lt;- iPhone non-retina standard icon</span>
+            <span class="s2">"Icon@2x.png"</span><span class="o">]</span> <span class="c1"># &lt;- Retina iPhone icon</span>
+
+    <span class="c1">#### Application Frameworks</span>
+    <span class="c1"># This next line details the list of iOS frameworks that this application will require.</span>
+    <span class="c1"># While this list is specific to this application, it's pretty much the bare minimum needed</span>
+    <span class="c1"># for utilizing the Salesforce mobile SDK (iOS)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">frameworks</span> <span class="o">+=</span> <span class="sx">%w(CFNetwork CoreData MobileCoreServices SystemConfiguration Security MessageUI QuartzCore OpenGLES CoreGraphics sqlite3)</span>
+
+    <span class="c1">#### Code signature, profile and Identifier info. ##Headache##</span>
+    <span class="c1"># Note well the difference between development (simulator use) and relase (on device use)!</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">development</span> <span class="k">do</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">entitlements</span><span class="o">[</span><span class="s1">'get-task-allow'</span><span class="o">]</span> <span class="o">=</span> <span class="kp">true</span>
+        <span class="c1"># app.identifier = '&lt;&lt;&lt; INSERT YOUR APP IDENTIFIER HERE &gt;&gt;&gt;'</span>
+        <span class="c1"># app.provisioning_profile = '&lt;&lt;&lt; INSERT FULL PATH TO YOUR PROVISIONING PROFILE HERE &gt;&gt;&gt;'</span>
+        <span class="c1"># app.codesign_certificate = '&lt;&lt;&lt; INSERT NAME OF CODE SIGN CERTIFICATE HERE &gt;&gt;&gt;'</span>
+    <span class="k">end</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">release</span> <span class="k">do</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">entitlements</span><span class="o">[</span><span class="s1">'get-task-allow'</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span> <span class="c1"># &lt;- THIS IS CRUCIAL</span>
+    <span class="c1"># app.identifier = '&lt;&lt;&lt; INSERT YOUR APP IDENTIFIER HERE &gt;&gt;&gt;'</span>
+        <span class="c1"># app.provisioning_profile = '&lt;&lt;&lt; INSERT FULL PATH TO YOUR PROVISIONING PROFILE HERE &gt;&gt;&gt;'</span>
+        <span class="c1"># app.codesign_certificate = '&lt;&lt;&lt; INSERT NAME OF CODE SIGN CERTIFICATE HERE &gt;&gt;&gt;'</span>
+    <span class="k">end</span>
+
+    <span class="c1">#### Additional Libraries Needed</span>
+    <span class="c1"># These are the minimum required libraries for use with the Salesforce mobile iOS SDK</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"/usr/lib/libxml2.2.dylib"</span> <span class="c1"># &lt;- XML? ... yeah, we need it.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"/usr/lib/libsqlite3.0.dylib"</span> <span class="c1"># &lt;- Need to link against Sqlite 3</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"/usr/lib/libz.dylib"</span> <span class="c1"># &lt;- Need to link against zlib</span>
+    <span class="c1"># This rakefile assumes you're following the practice of placing a copy of the Salesforce</span>
+    <span class="c1"># iOS sdk under &lt;&lt;ProjectRoot&gt;&gt;/vendor/Salesforce</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"vendor/Salesforce/dist/openssl/openssl/libcrypto.a"</span> <span class="c1"># &lt;- Salesforce provided crypto lib</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"vendor/Salesforce/dist/openssl/openssl/libssl.a"</span> <span class="c1"># &lt;- Salesforce provided SSL lib</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"vendor/Salesforce/dist/sqlcipher/sqlcipher/libsqlcipher.a"</span> <span class="c1"># &lt;- Salesforce Provided Sqlite Encryption library</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">libs</span> <span class="o">&lt;&lt;</span> <span class="s2">"vendor/Salesforce/dist/SalesforceCommonUtils/Libraries/libSalesforceCommonUtils.a"</span> <span class="c1"># &lt;- Salesforce provided, Non-open source library!</span>
+
+    <span class="c1">#### Entitlements</span>
+    <span class="c1"># In order for the application to securely store oAuth credentials, Salesforce apps need</span>
+    <span class="c1"># the keychain-access-groups entitlement, this shouldn't change.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">entitlements</span><span class="o">[</span><span class="s1">'keychain-access-groups'</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">seed_id</span> <span class="o">+</span> <span class="s1">'.'</span> <span class="o">+</span> <span class="n">app</span><span class="o">.</span><span class="n">identifier</span>
+    <span class="o">]</span>
+
+    <span class="c1">#### Vendor Projects, because sometimes, precompiled code sucks.</span>
+    <span class="c1"># While Salesforce provides precompiled versions of the following libraries under</span>
+    <span class="c1"># /vendor/Salesforce/dist/&lt;&lt;Lib Name&gt;&gt; the following libraries *MUST* be compiled</span>
+    <span class="c1"># so that rubymotion builds, and includes the bridgesupport file. This provides </span>
+    <span class="c1"># Rubymotion with access to methods that are in Obj-c categories etc. </span>
+
+    <span class="c1"># Restkit, because the pod isn't good enough.</span>
+    <span class="c1"># YOU MUST USE THE SALESFORCE DISTRIBUTED VERSION</span>
+    <span class="c1"># YOU MUST HAND COMPILE IT VIA VENDOR_PROJECT TO AVOID</span>
+    <span class="c1">#   RANDOM SELECTOR_NOT_FOUND ERRORS. THAT IS ALL.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">vendor_project</span> <span class="s2">"vendor/Salesforce/external/RestKit/RestKit"</span><span class="p">,</span> <span class="c1"># &lt;- path to root of library source</span>
+        <span class="ss">:xcode</span><span class="p">,</span> <span class="c1"># &lt;- either :xcode or :static, use :xcode if there is a .xcodeproj file present</span>
+        <span class="ss">:target</span> <span class="o">=&gt;</span> <span class="s1">'RestKit'</span><span class="p">,</span> <span class="c1"># &lt;- if :xcode, specify the target you want to build</span>
+        <span class="ss">:headers_dir</span> <span class="o">=&gt;</span> <span class="s2">"build/RestKit"</span> <span class="c1"># &lt;- *this is the crucial bit* RubyMotion builds the</span>
+                        <span class="c1"># .bridgesupport file from the headers, </span>
+                        <span class="c1"># YOU MUST SPECIFY THE HEADER DIR.</span>
+
+    <span class="c1"># Salesforce SDK oAuth Library</span>
+    <span class="c1"># YOU MUST HAND COMPILE FROM SOURCE TO AVOID A SELECTOR</span>
+    <span class="c1">#   NOT FOUND ERROR ON MACADDRESS. #JUSTSAYING.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">vendor_project</span> <span class="s2">"vendor/Salesforce/native/SalesforceOAuth"</span><span class="p">,</span> 
+        <span class="ss">:xcode</span><span class="p">,</span> 
+        <span class="ss">:target</span> <span class="o">=&gt;</span> <span class="s1">'SalesforceOAuth'</span><span class="p">,</span> 
+        <span class="ss">:headers_dir</span> <span class="o">=&gt;</span> <span class="s2">"Headers/SalesforceOAuth"</span>
+
+    <span class="c1">#  Salesforce SDK Libraries</span>
+    <span class="c1">#  Yeah so trying the precompile versions in vendor dist is just </span>
+    <span class="c1">#  futile on stupid on #thisIsWhyDevsDrink. Even if you get it</span>
+    <span class="c1">#  running, it'll bomb with weird ass errors.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">vendor_project</span> <span class="s2">"vendor/Salesforce/native/SalesforceSDK"</span><span class="p">,</span> 
+        <span class="ss">:xcode</span><span class="p">,</span>
+        <span class="ss">:target</span> <span class="o">=&gt;</span> <span class="s2">"SalesforceSDK"</span><span class="p">,</span>
+        <span class="ss">:headers_dir</span> <span class="o">=&gt;</span> <span class="s2">"SalesforceSDK/Classes"</span> <span class="c1"># &lt;- This is the most crucial .bridgesupport file</span>
+                            <span class="c1"># to be generated. </span>
+
+    <span class="c1">#### CocoaPods!</span>
+    <span class="c1"># Who doesn't love them some cocoaPod goodness?</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">pods</span> <span class="k">do</span>
+        <span class="c1"># pod 'RestKit' # &lt;- Salesforce relies on THEIR FORK! DO NOT USE POD</span>
+        <span class="n">pod</span> <span class="s1">'FlurrySDK'</span> <span class="c1"># &lt;- Flury Mobile Analytics SDK, this is optional, but Mobile Data Tools uses it.</span>
+        <span class="n">pod</span> <span class="s1">'Appirater'</span> <span class="c1"># &lt;- Cocoa Pod for built in automatic prompting of "rate my app please", Options but Mobile Data Tools uses it.</span>
+        <span class="n">pod</span> <span class="s1">'MGSplitViewController'</span> <span class="c1"># &lt;- A more feature rich split view controller, here as an example</span>
+        <span class="n">pod</span> <span class="s1">'MBProgressHUD'</span> <span class="c1"># &lt;- For displaying pretty spinners with "wait already!" messages. Not in use in this app.</span>
+        <span class="c1"># pod 'SQLCipher' # &lt;- don't use this. #iWasTemptedToo. #fail.</span>
+        <span class="c1"># pod 'FMDB' # &lt;- Database wrapper not unlike active record. Not in use in this app</span>
+    <span class="k">end</span>
+
+    <span class="c1">#TestFlight!</span>
+    <span class="c1"># While test flight is normally included via a cocoapod, RubyMotion has it's own Gem. This sets it up.</span>
+    <span class="c1"># This is optional, but highly recommended for on-device testing.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">testflight</span><span class="o">.</span><span class="n">sdk</span> <span class="o">=</span> <span class="s1">'vendor/TestFlight'</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">testflight</span><span class="o">.</span><span class="n">api_token</span> <span class="o">=</span> <span class="s1">'&lt;&lt;&lt; TEST FLIGHT API TOKEN HERE &gt;&gt;&gt;'</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">testflight</span><span class="o">.</span><span class="n">team_token</span> <span class="o">=</span> <span class="s1">'&lt;&lt;&lt; TEST FLIGHT TEAM TOKEN HERE &gt;&gt;&gt;'</span>
+
+<span class="k">end</span> <span class="c1"># &lt;- End App.setup block. </span>
+
+
+<span class="c1">### Helper Rake Tasks</span>
+<span class="c1"># These Rake tasks are helper tasks designed to make development smoother / better / faster / stronger!</span>
+<span class="c1"># #6million$Dev</span>
+
+<span class="n">desc</span> <span class="s2">"Open latest crash log"</span> <span class="c1"># &lt;- When the app crashes in the simulator it writes a .datXXXX file in the root </span>
+                <span class="c1"># of the project containing the crash log. this opens the latest one.</span>
+<span class="n">task</span> <span class="ss">:log</span> <span class="k">do</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="ss">Motion</span><span class="p">:</span><span class="ss">:Project</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">config</span>
+    <span class="nb">exec</span> <span class="s2">"less '</span><span class="si">#{</span><span class="no">Dir</span><span class="o">[</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">'HOME'</span><span class="o">]</span><span class="p">,</span> <span class="s2">"/Library/Logs/DiagnosticReports/</span><span class="si">#{</span><span class="n">app</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span><span class="o">].</span><span class="n">last</span><span class="si">}</span><span class="s2">'"</span>
+<span class="k">end</span>
+
+<span class="n">desc</span> <span class="s2">"Run simulator in retina mode"</span> <span class="c1"># &lt;- default is non-retina mode</span>
+<span class="n">task</span> <span class="ss">:retina</span> <span class="k">do</span>
+    <span class="nb">exec</span> <span class="s2">"bundle exec rake simulator retina=true"</span>
+<span class="k">end</span>
+
+<span class="n">desc</span> <span class="s2">"Run simulator on iPad"</span> <span class="c1"># &lt;- Run on an Ipad, if device family includes :ipad</span>
+<span class="n">task</span> <span class="ss">:ipad</span> <span class="k">do</span>
+    <span class="nb">exec</span> <span class="s2">"bundle exec rake simulator device_family=ipad"</span>
+<span class="k">end</span>
+
+</pre></div>
+
+<h2>
+<a name="additions--modifications-to-the-sfrestapi-and-sfrestapiblocks-classes" class="anchor" href="#additions--modifications-to-the-sfrestapi-and-sfrestapiblocks-classes"><span class="octicon octicon-link"></span></a>Additions / modifications to the SFRestAPI and SFRestAPI+Blocks classes</h2>
+
+<p>This app allows administrators to issue a password reset request for a given user. In order to do so, additional methods were added to the Salesforce provided SFRestAPI and SFRestAPI+Blocks classes. Details of those changes are here:</p>
+
+<div class="highlight"><pre><span class="c1">// Found in: SFRestAPI.m</span>
+<span class="c1">// The Password management endpoint was added in api v24.0, so we must use at least that version.</span>
+<span class="c1">// SDK ships with a default of v23.0</span>
+<span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">kSFRestDefaultAPIVersion</span> <span class="o">=</span> <span class="s">@"v24.0"</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="c1">// Found in: SFRestAPI.h</span>
+<span class="cm">/**</span>
+<span class="cm"> * Returns a `SFRestRequest` which executes a user password reset.</span>
+<span class="cm"> * @param uid a string containing the uuid of the user who's password should be reset.</span>
+<span class="cm"> * @see http://www.salesforce.com/us/developer/docs/api_rest/Content/resources_sobject_user_password.htm</span>
+<span class="cm"> */</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">SFRestRequest</span> <span class="o">*</span><span class="p">)</span><span class="nf">requestForUserPasswordReset:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">uid</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="c1">// Found in: SFRestAPI.m</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">SFRestRequest</span> <span class="o">*</span><span class="p">)</span><span class="nf">requestForUserPasswordReset:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">uid</span> <span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="n">stringWithFormat</span><span class="o">:</span><span class="s">@"/%@/sobjects/User/%@/password"</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">apiVersion</span><span class="p">,</span> <span class="n">uid</span><span class="p">];</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">SFRestRequest</span> <span class="n">requestWithMethod</span><span class="o">:</span><span class="n">SFRestMethodDELETE</span> <span class="n">path</span><span class="o">:</span><span class="n">path</span> <span class="n">queryParams</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="and-for-blocks-support" class="anchor" href="#and-for-blocks-support"><span class="octicon octicon-link"></span></a>And for Blocks support</h3>
+
+<div class="highlight"><pre><span class="c1">// Found in: SFRestAPI+Blocks.h</span>
+<span class="cm">/**</span>
+<span class="cm"> * Executes a request to reset a users password via REST API</span>
+<span class="cm"> * @param failBlock the block to be exectured when the request fails (timeout, cancel, or error)</span>
+<span class="cm"> * @param coompleteBlock the block to be executed when the request successfully completes</span>
+<span class="cm"> * @return the newly sent SFRestRequest</span>
+<span class="cm"> */</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">SFRestRequest</span> <span class="o">*</span><span class="p">)</span> <span class="nf">requestPasswordResetForUser:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">query</span> 
+                                      <span class="nf">failBlock:</span><span class="p">(</span><span class="n">SFRestFailBlock</span><span class="p">)</span><span class="nv">failBlock</span> 
+                                  <span class="nf">completeBlock:</span><span class="p">(</span><span class="n">SFRestDictionaryResponseBlock</span><span class="p">)</span><span class="nv">completeBlock</span><span class="p">;</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="c1">// Found in: SFRestAPI+Blocks.m</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">SFRestRequest</span> <span class="o">*</span><span class="p">)</span> <span class="nf">requestPasswordResetForUser:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">uid</span> <span class="nf">failBlock:</span><span class="p">(</span><span class="n">SFRestFailBlock</span><span class="p">)</span><span class="nv">failBlock</span> <span class="nf">completeBlock:</span><span class="p">(</span><span class="n">SFRestDictionaryResponseBlock</span><span class="p">)</span><span class="nv">completeBlock</span> <span class="p">{</span>
+    <span class="n">SFRestRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[[</span><span class="n">SFRestAPI</span> <span class="n">sharedInstance</span><span class="p">]</span> <span class="n">requestForUserPasswordReset</span><span class="o">:</span><span class="n">uid</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span> <span class="n">sendRESTRequest</span><span class="o">:</span><span class="n">request</span>
+                <span class="nl">failBlock:</span><span class="n">failBlock</span>
+            <span class="nl">completeBlock:</span><span class="n">completeBlock</span><span class="p">];</span>
+
+    <span class="k">return</span> <span class="n">request</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/noeticpenguin">noeticpenguin</a></p>
